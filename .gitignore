@@ -1,0 +1,6 @@
+# git ignore file
+packages
+.vs
+Debug
+Release
+bin
