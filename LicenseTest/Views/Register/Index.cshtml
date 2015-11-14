@@ -1,0 +1,27 @@
+﻿@using System.Web.UI.WebControls
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Register Domian</title>
+</head>
+<body>
+	<div>
+		@using (Html.BeginForm("Register", "Register", FormMethod.Post))
+		{
+			@Html.TextBox("Domain", string.Empty, new { placeHolder = "Domain"})
+
+			<button type="submit">Gönder</button>
+		}
+	</div>
+	<p>
+		@Html.ActionLink("View All", "List")
+	</p>
+</body>
+</html>

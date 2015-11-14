@@ -1,0 +1,38 @@
+﻿@model LicenseTest.Models.ClientData
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Register</title>
+</head>
+<body>
+	<div>
+		<h4>ClientData</h4>
+		<hr />
+		<dl class="dl-horizontal">
+			<dt>
+				@Html.DisplayNameFor(model => model.Domain)
+			</dt>
+
+			<dd>
+				@Html.DisplayFor(model => model.Domain)
+			</dd>
+
+		</dl>
+
+		<div>
+			@Html.Partial("LocalKeyView", Model)
+		</div>
+	</div>
+	<p>
+		@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+		@Html.ActionLink("Back to List", "Index")
+	</p>
+</body>
+</html>

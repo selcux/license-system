@@ -1,0 +1,15 @@
+﻿@using System.Web.UI.WebControls
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using (Html.BeginForm("Create", "Home", FormMethod.Post))
+{
+	@Html.TextBox("Domain", string.Empty, new { placeHolder = "Domain" })
+
+	@Html.TextBox("Key", string.Empty, new { placeHolder = "Key" })
+
+	<button type="submit">Gönder</button>
+}
+

@@ -1,0 +1,51 @@
+﻿@using LicenseTest.Models
+@model IEnumerable<LicenseTest.Models.ClientData>
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>List</title>
+</head>
+<body>
+	<p>
+		@Html.ActionLink("Create New", "Index")
+	</p>
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Domain)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.RemoteKey)
+			</th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Domain)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.RemoteKey)
+				</td>
+				<td>
+					@Html.Partial("LocalKeyView", item)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+					@Html.ActionLink("Details", "Register", new { id = item.Id }) |
+					@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+				</td>
+			</tr>
+		}
+
+	</table>
+</body>
+</html>

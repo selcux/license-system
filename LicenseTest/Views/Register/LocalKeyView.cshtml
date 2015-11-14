@@ -1,0 +1,29 @@
+﻿@using LicenseEncryption
+@model LicenseTest.Models.ClientData
+
+<div>
+	<h5>LocalKey</h5>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Key.PrivateKey)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Key.PrivateKey)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Key.PublicKey)
+		</dt>
+
+		<dd>
+			@{
+				SymmetricEncryption se = new SymmetricEncryption();
+				string encryptedKey = se.Encrypt(Model.Key.PublicKey, Model.Domain);
+			}
+			@Html.DisplayFor(model => encryptedKey)
+		</dd>
+
+	</dl>
+</div>
