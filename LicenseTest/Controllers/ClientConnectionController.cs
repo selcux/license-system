@@ -30,7 +30,7 @@ namespace LicenseTest.Controllers
 
 			clientData.RemoteKey = remoteKey;
 
-			// TODO : License data will be sent
+			LicenseRepository.Instance.GenerateLicense(domain, 365);
 
 			return Ok(remoteKey);
 		}

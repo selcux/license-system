@@ -9,6 +9,7 @@ namespace LicenseTest.Repositories
 		#region Singleton
 
 		private static readonly Lazy<DataRepository> instance = new Lazy<DataRepository>(() => new DataRepository());
+
 		public static DataRepository Instance => instance.Value;
 
 		private DataRepository()
