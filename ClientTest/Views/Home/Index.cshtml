@@ -1,4 +1,5 @@
 ﻿@using System.Web.UI.WebControls
+@model ClientTest.Models.DomainData
 
 @{
 	ViewBag.Title = "Index";
@@ -6,9 +7,9 @@
 }
 @using (Html.BeginForm("Create", "Home", FormMethod.Post))
 {
-	@Html.TextBox("Domain", string.Empty, new { placeHolder = "Domain" })
+	@Html.TextBoxFor(m => m.Domain, new { placeHolder = "Domain" })
 
-	@Html.TextBox("Key", string.Empty, new { placeHolder = "Key" })
+	@Html.TextBoxFor(m => m.Key, new { placeHolder = "Key" })
 
 	<button type="submit">Gönder</button>
 }

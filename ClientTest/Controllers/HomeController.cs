@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Mvc;
@@ -30,7 +31,6 @@ namespace ClientTest.Controllers
 			DataRepository.Instance.Domain = data.Domain;
 			DataRepository.Instance.RemoteKey = se.Decrypt(data.Key, data.Domain);
 
-/*
 			string privateKey;
 			string publicKey;
 			AsymmetricEncryption.GenerateKeys(1024, out privateKey, out publicKey);
@@ -41,28 +41,31 @@ namespace ClientTest.Controllers
 				PublicKey = publicKey
 			};
 
-			// TODO: Public key will be sent to server
-
 			using (var client = new HttpClient())
 			{
 				client.BaseAddress = new Uri("http://localhost:4427/");
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-				Tuple<string, string> pData = new Tuple<string, string>(DataRepository.Instance.Key.PublicKey,
-					DataRepository.Instance.Domain);
+				string encryptedPublicKey = se.Encrypt(DataRepository.Instance.Key.PublicKey, DataRepository.Instance.Domain);
+				Dictionary<string, string> pData = new Dictionary<string, string>
+				{
+					{"Key", encryptedPublicKey},
+					{"Domain", DataRepository.Instance.Domain}
+				};
 
 				HttpResponseMessage response = await client.PostAsJsonAsync("api/ClientConnection", pData);
 
 				if (! response.IsSuccessStatusCode)
 				{
-					string statusCode = response.StatusCode.ToString();
-					return View((object) statusCode);
+					return View((object) response.ToString());
 				}
-			}
-*/
 
-			return View((object)DataRepository.Instance.RemoteKey);
+				string result = await response.Content.ReadAsStringAsync();
+				return View((object) result);
+			}
+
+			//return View((object)DataRepository.Instance.RemoteKey);
 		}
 		/*
 				// POST: Home/Create

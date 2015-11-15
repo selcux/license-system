@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using LicenseEncryption;
@@ -8,12 +9,16 @@ namespace LicenseTest.Controllers
 {
 	public class ClientConnectionController : ApiController
 	{
-		// TODO: Client public key will be received and license data will be sent
-		public IHttpActionResult Post(Tuple<string, string> pData)
+		public IHttpActionResult Post(Dictionary<string, string> pData)
 		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
 			SymmetricEncryption se = new SymmetricEncryption();
-			string key = pData.Item1;
-			string domain = pData.Item2;
+			string key = pData["Key"];
+			string domain = pData["Domain"];
 			string remoteKey = se.Decrypt(key, domain);
 
 			var clientData = DataRepository.Instance.ClienDataList.FirstOrDefault(data => data.Domain.Equals(domain));
@@ -25,7 +30,10 @@ namespace LicenseTest.Controllers
 
 			clientData.RemoteKey = remoteKey;
 
+			// TODO : License data will be sent
+
 			return Ok(remoteKey);
 		}
+
 	}
 }
