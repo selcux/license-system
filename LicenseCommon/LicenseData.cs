@@ -1,8 +1,8 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LicenseTest.Models
+namespace LicenseCommon
 {
+	[Serializable]
 	public class LicenseData
 	{
 		public Guid Id { get; set; } = Guid.NewGuid();
@@ -11,7 +11,6 @@ namespace LicenseTest.Models
 
 		public uint LicensePeriodInDays = 365;
 
-		[NotMapped]
 		public DateTime ExpiryDate => StartDate.AddDays(LicensePeriodInDays);
 	}
 }

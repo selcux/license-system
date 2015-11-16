@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseEncryption", "Licens
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientTest", "ClientTest\ClientTest.csproj", "{528FF2E1-EA39-41B4-A301-89065D038D3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseCommon", "LicenseCommon\LicenseCommon.csproj", "{7CE4B39A-05E2-4913-9FCC-DEE9802CAC89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{528FF2E1-EA39-41B4-A301-89065D038D3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{528FF2E1-EA39-41B4-A301-89065D038D3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{528FF2E1-EA39-41B4-A301-89065D038D3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CE4B39A-05E2-4913-9FCC-DEE9802CAC89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CE4B39A-05E2-4913-9FCC-DEE9802CAC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CE4B39A-05E2-4913-9FCC-DEE9802CAC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CE4B39A-05E2-4913-9FCC-DEE9802CAC89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

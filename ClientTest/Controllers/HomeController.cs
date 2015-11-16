@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using ClientTest.Models;
 using ClientTest.Repositories;
+using LicenseCommon;
 using LicenseEncryption;
 
 namespace ClientTest.Controllers
@@ -24,7 +26,7 @@ namespace ClientTest.Controllers
 		}
 
 		[HttpPost]
-		public async System.Threading.Tasks.Task<ActionResult> Create(DomainData data)
+		public async Task<ActionResult> Create(DomainData data)
 		{
 			SymmetricEncryption se = new SymmetricEncryption();
 
@@ -33,7 +35,7 @@ namespace ClientTest.Controllers
 
 			string privateKey;
 			string publicKey;
-			AsymmetricEncryption.GenerateKeys(1024, out privateKey, out publicKey);
+			AsymmetricEncryption.GenerateKeys(4096, out publicKey, out privateKey);
 
 			DataRepository.Instance.Key = new LocalKey
 			{
@@ -44,7 +46,7 @@ namespace ClientTest.Controllers
 			using (var client = new HttpClient())
 			{
 				client.BaseAddress = new Uri("http://localhost:4427/");
-				client.DefaultRequestHeaders.Accept.Clear();
+//				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 				string encryptedPublicKey = se.Encrypt(DataRepository.Instance.Key.PublicKey, DataRepository.Instance.Domain);
@@ -54,15 +56,28 @@ namespace ClientTest.Controllers
 					{"Domain", DataRepository.Instance.Domain}
 				};
 
-				HttpResponseMessage response = await client.PostAsJsonAsync("api/ClientConnection", pData);
+				HttpResponseMessage response1 = await client.PostAsJsonAsync("api/ClientConnection", pData);
 
-				if (! response.IsSuccessStatusCode)
+				if (! response1.IsSuccessStatusCode)
 				{
-					return View((object) response.ToString());
+					return View((object) response1.ToString());
 				}
 
-				string result = await response.Content.ReadAsStringAsync();
-				return View((object) result);
+				var response2 = await client.GetAsync("api/Licenses?domain=" + DataRepository.Instance.Domain);
+
+				if (!response2.IsSuccessStatusCode)
+				{
+					return View((object)response2.ToString());
+				}
+
+				var responseContent = await response2.Content.ReadAsAsync<Dictionary<string, string>>();
+				byte[] encryptedData = Convert.FromBase64String(responseContent["data"]);
+
+				var licenseData = AsymmetricEncryption.Decrypt(encryptedData, 4096, DataRepository.Instance.Key.PrivateKey);
+				LicenseData license = ObjectSerializer.Deserialize(licenseData) as LicenseData;
+
+				//string result = await response.Content.ReadAsStringAsync();
+				return View((object)license);
 			}
 
 			//return View((object)DataRepository.Instance.RemoteKey);

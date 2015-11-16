@@ -116,7 +116,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ClientData.cs" />
-    <Compile Include="Models\LicenseData.cs" />
     <Compile Include="Models\LocalKey.cs" />
     <Compile Include="Models\RegisterData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,6 +140,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LicenseCommon\LicenseCommon.csproj">
+      <Project>{7ce4b39a-05e2-4913-9fcc-dee9802cac89}</Project>
+      <Name>LicenseCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LicenseEncryption\LicenseEncryption.csproj">
       <Project>{544d2b8f-6941-4b7b-9afa-b47bab85fa69}</Project>
       <Name>LicenseEncryption</Name>

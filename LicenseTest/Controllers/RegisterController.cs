@@ -30,7 +30,7 @@ namespace LicenseTest.Controllers
 
 			string publicKey;
 			string privateKey;
-			AsymmetricEncryption.GenerateKeys(1024, out publicKey, out privateKey);
+			AsymmetricEncryption.GenerateKeys(4096, out publicKey, out privateKey);
 
 			ClientData clientData = new ClientData
 			{

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using LicenseTest.Models;
+using LicenseCommon;
 
 namespace LicenseTest.Repositories
 {
@@ -29,7 +28,7 @@ namespace LicenseTest.Repositories
 				LicensePeriodInDays = days
 			};
 
-			LicenseTable.Add(domain, license);
+			LicenseTable[domain] = license;
 
 			return license;
 		}
