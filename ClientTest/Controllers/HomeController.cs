@@ -71,17 +71,40 @@ namespace ClientTest.Controllers
 				}
 
 				var responseContent = await response2.Content.ReadAsAsync<Dictionary<string, string>>();
+				LicenseFile.Write(responseContent["data"]);
+/*
 				byte[] encryptedData = Convert.FromBase64String(responseContent["data"]);
 
 				var licenseData = AsymmetricEncryption.Decrypt(encryptedData, 4096, DataRepository.Instance.Key.PrivateKey);
 				LicenseData license = ObjectSerializer.Deserialize(licenseData) as LicenseData;
+*/
 
 				//string result = await response.Content.ReadAsStringAsync();
-				return View((object)license);
+//				return View((object)license);
+				return View("ReadLicense");
 			}
 
 			//return View((object)DataRepository.Instance.RemoteKey);
 		}
+
+		public ActionResult License()
+		{
+			try
+			{
+				LicenseData license = LicenseFile.Read(DataRepository.Instance.Key.PrivateKey);
+				return View((object)license);
+			}
+			catch (Exception)
+			{
+				return View("Index");
+			}
+		}
+
+		public ActionResult ReadLicense()
+		{
+			return View();
+		}
+
 		/*
 				// POST: Home/Create
 				[HttpPost]

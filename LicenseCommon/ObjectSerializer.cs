@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace LicenseEncryption
+namespace LicenseCommon
 {
 	public static class ObjectSerializer
 	{

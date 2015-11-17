@@ -1,0 +1,11 @@
+﻿
+@{
+	ViewBag.Title = "ReadLicense";
+	Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@using (Html.BeginForm("License", "Home", FormMethod.Get))
+{
+	<button type="submit">Lisansı Göster</button>
+}
+

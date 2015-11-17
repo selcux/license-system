@@ -5,6 +5,7 @@
 	ViewBag.Title = "Index";
 	Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
+
 @using (Html.BeginForm("Create", "Home", FormMethod.Post))
 {
 	@Html.TextBoxFor(m => m.Domain, new { placeHolder = "Domain" })
